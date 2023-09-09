@@ -4,6 +4,7 @@
 //     Blue,
 // }
 
+import { get } from "http"
 import { type } from "os"
 
 // enum Types {
@@ -115,7 +116,7 @@ namespace a {
     // fn(Time)
 }
 
-console.log(a.Times);
+// console.log(a.Times);
 // console.log(b.Times);
 
 interface Name {
@@ -162,3 +163,47 @@ const people = Object.assign(people1, people2, people3)
 //         })
 //     })
 // }
+
+// const Base: ClassDecorator = (target) => {
+//     console.log(target);
+//     target.prototype.xiaoman = '小满'
+//     target.prototype.fn = () => {
+//         console.log('我是小满。。。');
+//     }
+// }
+// @Base
+// class Http {}
+// const http = new Http() as any;
+// console.log(http.xiaoman);
+// http.fn();
+
+const Base = (name: string) => {
+    const fn: ClassDecorator = (target) => {
+        console.log(target);
+        target.prototype.xiaoman = name
+        target.prototype.fn = () => {
+            console.log('我是小满。。。');
+        }
+    }
+    return fn
+}
+
+import axios from 'axios'
+const Get = (url: string) => {
+    const fn: MethodDecorator = (target, key, descriptor: PropertyDescriptor) => {
+        axios.get(url).then(res => {
+            descriptor.value(res.data)
+        })
+    }
+    return fn
+}
+// @Base('小王')
+class Http {
+    @Get('https://api.apiopen.top/api/getHaoKanVideo?page=0&size=10')
+    getList(data: any) {
+        console.log(data.result.list);
+    }
+}
+const http = new Http() as any;
+// console.log(http.xiaoman);
+// http.fn();
