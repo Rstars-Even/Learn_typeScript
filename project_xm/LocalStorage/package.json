@@ -2,11 +2,18 @@
   "name": "localstorage",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "rollup.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "rollup": "^3.29.1",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "typescript": "^5.2.2"
+  },
+  "type": "module"
 }
